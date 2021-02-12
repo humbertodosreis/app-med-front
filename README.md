@@ -68,3 +68,19 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 ### `npm run build` fails to minify
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+
+
+### create stack
+```
+aws cloudformation create-stack --stack-name alura-med-front --template-body file://stack.yml
+```
+
+### deploy
+```
+aws sync build s3://bucket-name
+```
+
+### delete stack
+```
+aws cloudformation delete-stack --stack-name alura-med-front
+```
