@@ -2,10 +2,10 @@ import React, { useState, useEffect } from "react";
 import ListGroup from "react-bootstrap/ListGroup";
 import Table from "react-bootstrap/Table";
 import { LinkContainer } from "react-router-bootstrap";
-import { API } from "aws-amplify";
-import { useAppContext } from "../../libs/contextLib";
-import { onError } from "../../libs/errorLib";
-import "./List.css";
+import { useAppContext } from "../../../libs/contextLib";
+import { onError } from "../../../libs/errorLib";
+import { getAllPatients } from "../../../services/patients";
+import "./style.css";
 
 export default function List() {
   const [patients, setPatients] = useState([]);
@@ -19,7 +19,7 @@ export default function List() {
       }
 
       try {
-        const loadedPatients = await loadPatients();
+        const loadedPatients = await getAllPatients();
         setPatients(loadedPatients);
       } catch (e) {
         onError(e);
@@ -30,10 +30,6 @@ export default function List() {
 
     onLoad();
   }, [isAuthenticated]);
-
-  function loadPatients() {
-    return API.get("pacientes", "/pacientes");
-  }
 
   function renderPatientsList(patients) {
     return (

@@ -1,12 +1,12 @@
 import React, { useRef, useState } from "react";
 import Form from "react-bootstrap/Form";
 import { useHistory } from "react-router-dom";
-import { API } from "aws-amplify";
-import LoaderButton from "../../components/LoaderButton";
-import { onError } from "../../libs/errorLib";
-import config from "../../config";
-import { useFormFields } from "../../libs/hooksLib";
-import "./New.css";
+import LoaderButton from "../../../components/LoaderButton";
+import { onError } from "../../../libs/errorLib";
+import config from "../../../config";
+import { useFormFields } from "../../../libs/hooksLib";
+import { createPatient } from "../../../services/patients";
+import "./style.css";
 
 export default function New() {
   const history = useHistory();
@@ -44,12 +44,6 @@ export default function New() {
       onError(e);
       setIsLoading(false);
     }
-  }
-
-  function createPatient(patient) {
-    return API.post("pacientes", "/pacientes", {
-      body: patient,
-    });
   }
 
   return (

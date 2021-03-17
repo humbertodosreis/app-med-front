@@ -1,9 +1,13 @@
 import React, { useRef, useState, useEffect } from "react";
 import { useParams, useHistory } from "react-router-dom";
 import Form from "react-bootstrap/Form";
-import { API } from "aws-amplify";
-import LoaderButton from "../../components/LoaderButton";
-import { onError } from "../../libs/errorLib";
+import LoaderButton from "../../../components/LoaderButton";
+import { onError } from "../../../libs/errorLib";
+import {
+  getPatient,
+  savePatient,
+  deletePatient,
+} from "../../../services/patients";
 
 export default function Notes() {
   const { id } = useParams();
@@ -17,13 +21,9 @@ export default function Notes() {
   const [isDeleting, setIsDeleting] = useState(false);
 
   useEffect(() => {
-    function loadPatient() {
-      return API.get("pacientes", `/pacientes/${id}`);
-    }
-
     async function onLoad() {
       try {
-        const loadedPatient = await loadPatient();
+        const loadedPatient = await getPatient(id);
 
         setName(loadedPatient.nome);
         setBirthday(loadedPatient.data_nascimento);
@@ -40,16 +40,6 @@ export default function Notes() {
     onLoad();
   }, [id]);
 
-  function savePatient(patient) {
-    return API.put("pacientes", `/pacientes/${id}`, {
-      body: patient,
-    });
-  }
-
-  function deletePatient() {
-    return API.del("pacientes", `/pacientes/${id}`);
-  }
-
   function validateForm() {
     return (
       name.length > 0 &&
@@ -65,7 +55,7 @@ export default function Notes() {
     setIsLoading(true);
 
     try {
-      await savePatient({
+      await savePatient(id, {
         nome: name,
         telefone: phone,
         data_nascimento: birthday,
@@ -90,7 +80,7 @@ export default function Notes() {
     setIsDeleting(true);
 
     try {
-      await deletePatient();
+      await deletePatient(id);
       history.push("/patients");
     } catch (e) {
       onError(e);

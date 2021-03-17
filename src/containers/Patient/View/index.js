@@ -1,7 +1,9 @@
 import React, { useRef, useState, useEffect } from "react";
 import { useParams, useHistory } from "react-router-dom";
-import { API, Storage } from "aws-amplify";
-import { onError } from "../../libs/errorLib";
+// import { API, Storage } from "aws-amplify";
+import { onError } from "../../../libs/errorLib";
+import { getPatient } from "../../../services/patients";
+import "./style.css";
 
 export default function Notes() {
   //   const file = useRef(null);
@@ -11,13 +13,9 @@ export default function Notes() {
   //   const [content, setContent] = useState("");
 
   useEffect(() => {
-    function loadPatient() {
-      return API.get("pacientes", `/pacientes/${id}`);
-    }
-
     async function onLoad() {
       try {
-        const loadedPatient = await loadPatient();
+        const loadedPatient = await getPatient(id);
         // const { content, attachment } = note;
 
         // if (attachment) {
