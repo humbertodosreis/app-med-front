@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import ListGroup from "react-bootstrap/ListGroup";
 import Table from "react-bootstrap/Table";
 import { LinkContainer } from "react-router-bootstrap";
+import { Link } from "react-router-dom";
 import { useAppContext } from "../../../libs/contextLib";
 import { onError } from "../../../libs/errorLib";
 import { getAllPatients } from "../../../services/patients";
@@ -20,6 +21,7 @@ export default function List() {
 
       try {
         const loadedPatients = await getAllPatients();
+        console.log(loadedPatients);
         setPatients(loadedPatients);
       } catch (e) {
         onError(e);
@@ -35,18 +37,17 @@ export default function List() {
     return (
       <>
         {patients.map((item) => (
-          <LinkContainer
-            key={item.paciente_id}
-            to={`/patients/${item.paciente_id}/edit`}
-          >
-            <tr>
-              <td>{item.paciente_id.substring(1, 8)}</td>
-              <td>{item.nome}</td>
-              <td>{item.telefone}</td>
-              <td>{new Date(item.data_nascimento).toLocaleDateString()}</td>
-              <td>{item.email}</td>
-            </tr>
-          </LinkContainer>
+          <tr key={item.paciente_id}>
+            <td>{item.paciente_id.substring(1, 8)}</td>
+            <td>{item.nome}</td>
+            <td>{item.telefone}</td>
+            <td>{new Date(item.data_nascimento).toLocaleDateString()}</td>
+            <td>{item.email}</td>
+            <td>
+              [<Link to={`/patients/${item.paciente_id}/edit`}>Editar</Link>] [
+              <Link to={`/patients/${item.paciente_id}`}>Ver</Link>]
+            </td>
+          </tr>
         ))}
       </>
     );
@@ -76,6 +77,7 @@ export default function List() {
               <th>Telefone</th>
               <th>Data de Nascimento</th>
               <th>E-mail</th>
+              <th></th>
             </tr>
           </thead>
           <tbody>{!isLoading && renderPatientsList(patients.items)}</tbody>

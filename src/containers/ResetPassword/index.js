@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Auth } from "aws-amplify";
+
 import { Link } from "react-router-dom";
 import { FormGroup, FormControl, FormLabel, FormText } from "react-bootstrap";
 import LoaderButton from "../../components/LoaderButton";
@@ -35,14 +35,7 @@ export default function ResetPassword() {
     event.preventDefault();
 
     setIsSendingCode(true);
-
-    try {
-      await Auth.forgotPassword(fields.email);
-      setCodeSent(true);
-    } catch (error) {
-      onError(error);
-      setIsSendingCode(false);
-    }
+    setCodeSent(true);
   }
 
   async function handleConfirmClick(event) {
@@ -50,17 +43,7 @@ export default function ResetPassword() {
 
     setIsConfirming(true);
 
-    try {
-      await Auth.forgotPasswordSubmit(
-        fields.email,
-        fields.code,
-        fields.password
-      );
-      setConfirmed(true);
-    } catch (error) {
-      onError(error);
-      setIsConfirming(false);
-    }
+    setConfirmed(true);
   }
 
   function renderRequestCodeForm() {
