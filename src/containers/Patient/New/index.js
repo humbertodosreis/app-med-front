@@ -3,7 +3,6 @@ import Form from "react-bootstrap/Form";
 import { useHistory } from "react-router-dom";
 import LoaderButton from "../../../components/LoaderButton";
 import { onError } from "../../../libs/errorLib";
-import config from "../../../config";
 import { useFormFields } from "../../../libs/hooksLib";
 import { createPatient } from "../../../services/patients";
 import "./style.css";
