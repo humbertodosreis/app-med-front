@@ -72,7 +72,7 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/t
 
 ### create stack
 ```
-aws cloudformation create-stack --stack-name alura-med-front --template-body file://stack.yml
+aws cloudformation create-stack --stack-name app-med-front --template-body file://stack.yml
 ```
 
 ### deploy
@@ -82,5 +82,5 @@ aws sync build s3://bucket-name
 
 ### delete stack
 ```
-aws cloudformation delete-stack --stack-name alura-med-front
+aws cloudformation delete-stack --stack-name app-med-front
 ```

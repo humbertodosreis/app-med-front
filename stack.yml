@@ -3,7 +3,7 @@ Resources:
   S3Bucket:
     Type: AWS::S3::Bucket
     Properties:
-      BucketName: alura-med-front
+      BucketName: app-med-front
       AccessControl: PublicRead
       WebsiteConfiguration:
         IndexDocument: index.html
